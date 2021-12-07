@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css">
+
 </head>
 <body>
     <!-- need a timer and high scores button in the header-->
@@ -22,20 +23,20 @@
     <main id="question">
         <div id="question-container">
             <section id="question-title">
-                <h1>Test Question?</h1>
+                <h1 id="test-question">Test Question?</h1>
             </section>
             <section id="question-options">
                 <div>
-                    <button>1. Test answer</button>
+                    <button class="button" id="button-1" data-option="1">1. Test answer</button>
                 </div>
                 <div>
-                    <button>1. Test answer</button>
+                    <button class="button" id="button-2" data-option="2">1. Test answer</button>
                 </div>
                 <div>
-                    <button>1. Test answer</button>
+                    <button class="button" id="button-3" data-option="3">1. Test answer</button>
                 </div>
                 <div>
-                    <button>1. Test answer</button>
+                    <button class="button" id="button-4" data-option="4">1. Test answer</button>
                 </div>
             </section>
             <section id="question-answer">
@@ -45,5 +46,8 @@
             </section>
         </div>
     </main>
+
+    <!-- Apparently you have to call this at the bottom of the html file or the javascript will load before the DOM -->
+    <script src="./assets/script/script.js"></script>
 </body>
 </html>

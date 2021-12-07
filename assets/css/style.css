@@ -33,7 +33,7 @@ header {
     flex-direction: column;
 }
 
-#question-options button {
+#question-options .button {
     background-color: #582286;
     color: #F5F5F5;
     margin-top: 10px;
@@ -47,6 +47,8 @@ header {
     color: #C1C1C1;
     font-style: italic;
 }
+
+
 
 
 
