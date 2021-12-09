@@ -39,6 +39,7 @@ header {
     margin-top: 10px;
     border-radius: 5px;
     padding: 5px 25px 5px 5px;
+
 }
 
 #question-answer {
@@ -48,6 +49,23 @@ header {
     font-style: italic;
     visibility: hidden;
 }
+
+#start-button {
+    align-self: center;
+}
+
+#start-button button {
+    background-color: #582286;
+    color: #C1C1C1;
+    border-radius: 5px;
+    font-size: x-large;
+    padding:5px 45px 5px 40px;
+}
+
+.button {
+    visibility: hidden;
+}
+
 
 
 
