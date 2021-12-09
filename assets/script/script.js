@@ -8,11 +8,10 @@ var hiddenAnswer = document.querySelector("#question-answer");
 var startButtonEl = document.querySelector("#start-button");
 var buttonsEl = document.querySelectorAll(".button");
 var timerEl = document.querySelector("#current-timer");
-
+var highScoreInputEl = document.querySelector("#high-score-input");
 
 var currentTime = 75;
 var questionCounter = 0;
-
 
 var questionArray = [
     {
@@ -74,7 +73,14 @@ var questionArray = [
 ]
 
 var subtractTime = function() {
-    currentTime = currentTime - 5;
+    if (currentTime - 5 > 0) {
+        currentTime = currentTime - 5;  
+    } else if (currentTime > 0) {
+        currentTime--;
+    } else {
+        currentTime = 0;
+    }
+
 }
 
 var writeQuestion = function(question) {
@@ -89,6 +95,14 @@ var writeQuestion = function(question) {
 }
 
 var checkAnswer = function (eventTarget, currentQuestion) {
+    if (currentQuestion === 4) {
+        for (var i = 0; i < buttonsEl.length; i++) {
+            buttonsEl[i].remove();
+        }
+        highScoreInputEl.style.visibility = "visible";
+        questionTextEl.textContent = "Save your score!";
+        clearInterval(timer);
+    }
     if (eventTarget.getAttribute('data-correct') === questionArray[currentQuestion].correctAnswer && questionArray[currentQuestion].isAnswered === "false") {
         questionArray[0].isAnswered = "true";
         writeQuestion(questionArray[currentQuestion+ 1]);
@@ -100,7 +114,7 @@ var checkAnswer = function (eventTarget, currentQuestion) {
         writeQuestion(questionArray[currentQuestion+ 1]);
         hiddenAnswer.textContent = "Wrong!";
         hiddenAnswer.style.color = "#ff0000";
-        hiddenAnswer.style.fontSize = "200px";
+        hiddenAnswer.style.fontSize = "100px";
         subtractTime();
     }
 }
@@ -133,8 +147,15 @@ var buttonClickHandler = function (event) {
 }
 
 var timer = setInterval(function (){
-    timerEl.textContent = currentTime;
-    currentTime--;
+    if (questionCounter > 0){
+        if (currentTime > 0) {
+            timerEl.textContent = currentTime;
+            currentTime--;
+        } else {
+            currentTime = 0;
+            timerEl.textContent = currentTime;
+        }
+    }
 }, 1000)
 
 console.log(buttonContainerEl);

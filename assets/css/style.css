@@ -29,8 +29,13 @@ header {
     flex-direction: column;
 }
 
+#question-title {
+    text-align: center;
+}
+
 #question-container {
     padding-bottom: 25px;
+    max-width: 50%
 }
 
 #question-options {
@@ -75,6 +80,15 @@ header {
     border-radius: 5px;
     font-size: x-large;
     padding:5px 45px 5px 40px;
+}
+
+#high-score-container {
+    
+}
+
+#high-score-input {
+    margin-bottom: 50%;
+    visibility: hidden;
 }
 
 .button {
