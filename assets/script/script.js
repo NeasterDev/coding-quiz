@@ -79,49 +79,39 @@ var writeQuestion = function(question) {
     button4El.textContent = question.answers.d;
 
     hiddenAnswer.style.visibility = "visible";
-    question.isAnswered = "true";
+    questionCounter++;
 }
 
 var buttonClickHandler = function (event) {
-    questionCounter++;
     hiddenAnswer.style.visibility = "hidden";
     console.log("Question 0" + JSON.stringify(questionArray[0]));
+    console.log(event.target.getAttribute('data-correct'));
+    console.log(questionArray[0].correctAnswer);
+
 
     if (event.target.textContent === "Start") {
         writeQuestion(questionArray[0]);
+        hiddenAnswer.style.visibility = "hidden";
         for (var i = 0; i < buttonsEl.length; i++) {
             buttonsEl[i].style.visibility = "visible";
         }
-
         startButtonEl.remove();
-        
-    }
-    // if (event.target.getAttribute('data-correct') === questionArray[0].correctAnswer && questionArray[0].isAnswered === "false") {
-    //     hiddenAnswer.textContent = "Correct!";
-    //     console.log("Question 0");
-    //     writeQuestion(questionArray[0]);
-    // }
-    else if (event.target.getAttribute('data-correct') === questionArray[1].correctAnswer && questionArray[1].isAnswered === "false") {
-        hiddenAnswer.textContent = "Correct!";
-        console.log("Question 1");
+    } else if (event.target.getAttribute('data-correct') === questionArray[0].correctAnswer && questionArray[0].isAnswered === "false" && questionCounter === 1) {
+        questionArray[0].isAnswered = "true";
         writeQuestion(questionArray[1]);
-    }
-    else if (event.target.getAttribute('data-correct') === questionArray[2].correctAnswer && questionArray[2].isAnswered === "false") {
-        hiddenAnswer.textContent = "Correct!";
-        console.log("Question 2");
+    } else if (event.target.getAttribute('data-correct') === questionArray[1].correctAnswer && questionArray[1].isAnswered === "false" && questionCounter === 2) {
+        questionArray[1].isAnswered = "true";
         writeQuestion(questionArray[2]);
-    }
-    else if (event.target.getAttribute('data-correct') === questionArray[3].correctAnswer && questionArray[3].isAnswered === "false") {
-        hiddenAnswer.textContent = "Correct!";
-        console.log("Question 3");
+    } else if (event.target.getAttribute('data-correct') === questionArray[2].correctAnswer && questionArray[2].isAnswered === "false" && questionCounter === 3) {
+        questionArray[2].isAnswered = "true";
         writeQuestion(questionArray[3]);
-    }
-    else if (event.target.getAttribute('data-correct') === questionArray[4].correctAnswer && questionArray[4].isAnswered === "false") {
-        hiddenAnswer.textContent = "Correct!";
-        console.log("Question 4");
+    } else if (event.target.getAttribute('data-correct') === questionArray[3].correctAnswer && questionArray[3].isAnswered === "false" && questionCounter === 4) {
+        questionArray[3].isAnswered = "true";
         writeQuestion(questionArray[4]);
+    } else if (event.target.getAttribute('data-correct') === questionArray[4].correctAnswer && questionArray[4].isAnswered === "false" && questionCounter === 5) {
+        questionArray[4].isAnswered = "true";
+        //writeQuestion(questionArray[5]);
     }
-
 }
 console.log(buttonContainerEl);
 console.log(questionArray[0].question);
