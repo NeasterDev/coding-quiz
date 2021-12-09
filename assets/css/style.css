@@ -46,6 +46,7 @@ header {
     margin-top: 20px;
     color: #C1C1C1;
     font-style: italic;
+    visibility: hidden;
 }
 
 
