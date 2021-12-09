@@ -7,8 +7,10 @@ var button4El = document.querySelector("#button-4");
 var hiddenAnswer = document.querySelector("#question-answer");
 var startButtonEl = document.querySelector("#start-button");
 var buttonsEl = document.querySelectorAll(".button");
+var timerEl = document.querySelector("#current-timer");
 
 
+var currentTime = 75;
 var questionCounter = 0;
 
 
@@ -32,7 +34,7 @@ var questionArray = [
             c: "3. Square brackets",
             d: "4. Parenthesis"
         },
-        correctAnswer: "b",
+        correctAnswer: "d",
         isAnswered: "false"
     },
     {
@@ -58,7 +60,7 @@ var questionArray = [
         isAnswered: "false"
     },
     {
-        question: "A very useful tool used during development and debugging for printing" +
+        question: "A very useful tool used during development and debugging for printing " +
         "content to the debugger is:",
         answers: {
             a: "1. JavaScript",
@@ -71,6 +73,10 @@ var questionArray = [
     }
 ]
 
+var subtractTime = function() {
+    currentTime = currentTime - 5;
+}
+
 var writeQuestion = function(question) {
     questionTextEl.textContent = question.question;
     button1El.textContent = question.answers.a;
@@ -80,6 +86,23 @@ var writeQuestion = function(question) {
 
     hiddenAnswer.style.visibility = "visible";
     questionCounter++;
+}
+
+var checkAnswer = function (eventTarget, currentQuestion) {
+    if (eventTarget.getAttribute('data-correct') === questionArray[currentQuestion].correctAnswer && questionArray[currentQuestion].isAnswered === "false") {
+        questionArray[0].isAnswered = "true";
+        writeQuestion(questionArray[currentQuestion+ 1]);
+        hiddenAnswer.textContent = "Correct!";
+        hiddenAnswer.style.color = "#C1C1C1";
+        hiddenAnswer.style.fontSize = "30px";
+    } else {
+        questionArray[2].isAnswered = "true";
+        writeQuestion(questionArray[currentQuestion+ 1]);
+        hiddenAnswer.textContent = "Wrong!";
+        hiddenAnswer.style.color = "#ff0000";
+        hiddenAnswer.style.fontSize = "200px";
+        subtractTime();
+    }
 }
 
 var buttonClickHandler = function (event) {
@@ -96,23 +119,24 @@ var buttonClickHandler = function (event) {
             buttonsEl[i].style.visibility = "visible";
         }
         startButtonEl.remove();
-    } else if (event.target.getAttribute('data-correct') === questionArray[0].correctAnswer && questionArray[0].isAnswered === "false" && questionCounter === 1) {
-        questionArray[0].isAnswered = "true";
-        writeQuestion(questionArray[1]);
-    } else if (event.target.getAttribute('data-correct') === questionArray[1].correctAnswer && questionArray[1].isAnswered === "false" && questionCounter === 2) {
-        questionArray[1].isAnswered = "true";
-        writeQuestion(questionArray[2]);
-    } else if (event.target.getAttribute('data-correct') === questionArray[2].correctAnswer && questionArray[2].isAnswered === "false" && questionCounter === 3) {
-        questionArray[2].isAnswered = "true";
-        writeQuestion(questionArray[3]);
-    } else if (event.target.getAttribute('data-correct') === questionArray[3].correctAnswer && questionArray[3].isAnswered === "false" && questionCounter === 4) {
-        questionArray[3].isAnswered = "true";
-        writeQuestion(questionArray[4]);
-    } else if (event.target.getAttribute('data-correct') === questionArray[4].correctAnswer && questionArray[4].isAnswered === "false" && questionCounter === 5) {
-        questionArray[4].isAnswered = "true";
-        //writeQuestion(questionArray[5]);
+    } else if (questionCounter === 1) {
+        checkAnswer(event.target, 0);
+    } else if (questionCounter === 2) {
+        checkAnswer(event.target, 1);
+    } else if (questionCounter === 3) {
+        checkAnswer(event.target, 2);
+    } else if (questionCounter === 4) {
+        checkAnswer(event.target, 3);
+    } else if (questionCounter === 5) {
+        checkAnswer(event.target, 4);
     }
 }
+
+var timer = setInterval(function (){
+    timerEl.textContent = currentTime;
+    currentTime--;
+}, 1000)
+
 console.log(buttonContainerEl);
 console.log(questionArray[0].question);
 buttonContainerEl.addEventListener("click", buttonClickHandler);

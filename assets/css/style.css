@@ -1,5 +1,10 @@
 * {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'Raleway', sans-serif;
+}
+
+:root {
+    --button-color: #54a653;
+    --text-color: yellow;
 }
 
 header {
@@ -34,15 +39,25 @@ header {
 }
 
 #question-options .button {
-    background-color: #582286;
-    color: #F5F5F5;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    -webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black;
+    font-weight: 900;
     margin-top: 10px;
     border-radius: 5px;
     padding: 5px 25px 5px 5px;
+    min-width: 150px;
+    text-align: left;
+}
 
+#question-options .button:hover {
+    background-color: #ac87cc;
+    color: yellow;
 }
 
 #question-answer {
+    font-size: 30px;
     border-top: 2px solid #C1C1C1;
     margin-top: 20px;
     color: #C1C1C1;
@@ -55,8 +70,8 @@ header {
 }
 
 #start-button button {
-    background-color: #582286;
-    color: #C1C1C1;
+    background-color: var(--button-color);
+    color: var(--text-color);
     border-radius: 5px;
     font-size: x-large;
     padding:5px 45px 5px 40px;
