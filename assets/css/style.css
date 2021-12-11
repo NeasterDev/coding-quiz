@@ -82,8 +82,17 @@ header {
     padding:5px 45px 5px 40px;
 }
 
-#high-score-container {
-    
+#high-score-button {
+    background: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: var(--button-color);
+}
+#high-score-button:hover {
+    background: var(--button-color);
+    color: var(--text-color);
 }
 
 #high-score-input {

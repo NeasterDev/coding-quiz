@@ -9,6 +9,8 @@ var startButtonEl = document.querySelector("#start-button");
 var buttonsEl = document.querySelectorAll(".button");
 var timerEl = document.querySelector("#current-timer");
 var highScoreInputEl = document.querySelector("#high-score-input");
+var submitButtonEl = document.querySelector("#submit-button");
+var highScoreButtonEl = document.querySelector("#high-score-button");
 
 var currentTime = 75;
 var questionCounter = 0;
@@ -94,6 +96,23 @@ var writeQuestion = function(question) {
     questionCounter++;
 }
 
+var store = function () {
+    var inputName= document.getElementById("high-score-name");
+    localStorage.setItem("high-score-name" + inputName.value + Math.floor(Math.random() * 10000), inputName.value);
+}
+
+var highScores = function () {
+    var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+
+    while ( i-- ) {
+        values.push( localStorage.getItem(keys[i]) );
+        console.log(localStorage.getItem(keys[i]));
+    }
+    return values;
+}
+
 var checkAnswer = function (eventTarget, currentQuestion) {
     if (currentQuestion === 4) {
         for (var i = 0; i < buttonsEl.length; i++) {
@@ -103,7 +122,7 @@ var checkAnswer = function (eventTarget, currentQuestion) {
         questionTextEl.textContent = "Save your score!";
         clearInterval(timer);
     }
-    if (eventTarget.getAttribute('data-correct') === questionArray[currentQuestion].correctAnswer && questionArray[currentQuestion].isAnswered === "false") {
+    else if (eventTarget.getAttribute('data-correct') === questionArray[currentQuestion].correctAnswer && questionArray[currentQuestion].isAnswered === "false") {
         questionArray[0].isAnswered = "true";
         writeQuestion(questionArray[currentQuestion+ 1]);
         hiddenAnswer.textContent = "Correct!";
@@ -161,4 +180,5 @@ var timer = setInterval(function (){
 console.log(buttonContainerEl);
 console.log(questionArray[0].question);
 buttonContainerEl.addEventListener("click", buttonClickHandler);
-
+submitButtonEl.addEventListener('click', store);
+highScoreButtonEl.addEventListener('click',highScores);
