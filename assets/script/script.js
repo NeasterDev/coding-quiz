@@ -11,10 +11,12 @@ var timerEl = document.querySelector("#current-timer");
 var highScoreInputEl = document.querySelector("#high-score-input");
 var submitButtonEl = document.querySelector("#submit-button");
 var highScoreButtonEl = document.querySelector("#high-score-button");
+var mainEl = document.querySelector('#main');
 
 
 var currentTime = 75;
 var questionCounter = 0;
+var values = [];
 
 var questionArray = [
     {
@@ -97,41 +99,51 @@ var writeQuestion = function(question) {
     questionCounter++;
 }
 
-// var addElement = function (highScoreName) {
-//     var newScore = document.createElement("li");
-//     var newScoreText = document.createTextNode(highScoreName);
-//     newScore.appendChild(newScoreText);
-
-//     highScoreListEl.appendChild(newScore);
-// }
 
 var store = function () {
     var inputName= document.getElementById("high-score-name");
-    localStorage.setItem(inputName.value, currentTime);
+    localStorage.setItem('hs-' + inputName.value, inputName.value + ": " +  currentTime);
+}
+
+var createHighScoreList = function(score) {
+    var container = document.createElement('div');
+    var listContainer = document.createElement('ul');
+    var listItem = document.createElement('li');
+    listItem.textContent = score;
+
+    listContainer.appendChild(listItem);
+    container.appendChild(listContainer);
+
+    return container;
+}
+
+var appendScoreList = function(container) {
+    mainEl.appendChild(container);
+
 }
 
 var highScores = function () {
+   // event.preventDefault();
     console.log("HighScores");
-    var values = [],
     keys = Object.keys(localStorage),
     i = keys.length;
 
-    listContainer = document.createElement('div');
-    listElement = document.createElement('ul');
-
-    document.getElementsByTagName('main')[0].appendChild(listContainer);
-
     while ( i-- ) {
-        values.push( localStorage.getItem(keys[i]) );
-        console.log(localStorage.getItem(keys[i]));
-        console.log(localStorage.key(i));
-        var listItem = document.createElement('li');
+        values.push(localStorage.getItem(keys[i]));
+        //console.log(localStorage.getItem(keys[i]));
+        console.log("i = " + i);
+        //console.log(localStorage.key(i));
+        if (values[i]) {
 
-        listItem.innerHTML = localStorage.getItem(keys[i].value);
-        listElement.appendChild(listItem);
+            console.log("VALUE: " + JSON.stringify(values[i]));
+            // console.log("VALUE: " + JSON.stringify(values[0]));
+            // console.log("VALUE: " + JSON.stringify(values[1]));
+            // console.log("VALUE: " + JSON.stringify(values[2]));
+            //appendScoreList(createHighScoreList(JSON.stringify(values[i])));
+        }
     }
-    return values;
 }
+
 
 var checkAnswer = function (eventTarget, currentQuestion) {
     if (currentQuestion === 4) {
@@ -197,13 +209,21 @@ var timer = setInterval(function (){
     }
 }, 1000)
 
+
+
 if (buttonContainerEl){
     buttonContainerEl.addEventListener("click", buttonClickHandler);
 }
 if (submitButtonEl) {
     submitButtonEl.addEventListener('click', store);
 }
-if (highScoreButtonEl) {
-    highScoreButtonEl.addEventListener('click',highScores);
+
+highScores();
+for(var i = 0; i < values.length; i++) {
+    appendScoreList(createHighScoreList(values[i]));
 }
+
+//if (highScoreButtonEl) {
+//    highScoreButtonEl.addEventListener('click',highScores);
+// }
 
