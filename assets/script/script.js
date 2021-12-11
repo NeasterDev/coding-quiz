@@ -12,6 +12,7 @@ var highScoreInputEl = document.querySelector("#high-score-input");
 var submitButtonEl = document.querySelector("#submit-button");
 var highScoreButtonEl = document.querySelector("#high-score-button");
 
+
 var currentTime = 75;
 var questionCounter = 0;
 
@@ -96,19 +97,38 @@ var writeQuestion = function(question) {
     questionCounter++;
 }
 
+// var addElement = function (highScoreName) {
+//     var newScore = document.createElement("li");
+//     var newScoreText = document.createTextNode(highScoreName);
+//     newScore.appendChild(newScoreText);
+
+//     highScoreListEl.appendChild(newScore);
+// }
+
 var store = function () {
     var inputName= document.getElementById("high-score-name");
-    localStorage.setItem("high-score-name" + inputName.value + Math.floor(Math.random() * 10000), inputName.value);
+    localStorage.setItem(inputName.value, currentTime);
 }
 
 var highScores = function () {
+    console.log("HighScores");
     var values = [],
     keys = Object.keys(localStorage),
     i = keys.length;
 
+    listContainer = document.createElement('div');
+    listElement = document.createElement('ul');
+
+    document.getElementsByTagName('main')[0].appendChild(listContainer);
+
     while ( i-- ) {
         values.push( localStorage.getItem(keys[i]) );
         console.log(localStorage.getItem(keys[i]));
+        console.log(localStorage.key(i));
+        var listItem = document.createElement('li');
+
+        listItem.innerHTML = localStorage.getItem(keys[i].value);
+        listElement.appendChild(listItem);
     }
     return values;
 }
@@ -177,8 +197,13 @@ var timer = setInterval(function (){
     }
 }, 1000)
 
-console.log(buttonContainerEl);
-console.log(questionArray[0].question);
-buttonContainerEl.addEventListener("click", buttonClickHandler);
-submitButtonEl.addEventListener('click', store);
-highScoreButtonEl.addEventListener('click',highScores);
+if (buttonContainerEl){
+    buttonContainerEl.addEventListener("click", buttonClickHandler);
+}
+if (submitButtonEl) {
+    submitButtonEl.addEventListener('click', store);
+}
+if (highScoreButtonEl) {
+    highScoreButtonEl.addEventListener('click',highScores);
+}
+
