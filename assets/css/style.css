@@ -100,8 +100,27 @@ header {
     visibility: hidden;
 }
 
-#high-score-container {
-    
+#main {
+    background-color: var(--button-color);
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.score-container {
+    border: 3px solid var(--text-color);
+    margin: 2px;
+    padding: 10px;
+}
+
+.score-container ul {
+    text-align: center;
+}
+
+.score-container ul li {
+    text-align: center;
+    list-style: none;
+    color: var(--text-color);
 }
 
 .button {

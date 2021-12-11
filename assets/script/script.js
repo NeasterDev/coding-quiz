@@ -107,6 +107,7 @@ var store = function () {
 
 var createHighScoreList = function(score) {
     var container = document.createElement('div');
+    container.className = "score-container";
     var listContainer = document.createElement('ul');
     var listItem = document.createElement('li');
     listItem.textContent = score;
